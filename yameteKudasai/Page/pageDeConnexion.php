@@ -1,5 +1,5 @@
 <?php
-session_start();
+require '../Corps/header.php';
 require '../CRUD/dbYameteKudasai.php';  // Connexion à la base de données
 
 if(isset($_POST['envoi'])){
@@ -40,35 +40,12 @@ if(isset($_POST['envoi'])){
 ?>
 
 
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Connexion</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="../CSS/pageDeConnexion.css">
-</head>
-<body>
-    <?php include '../Corps/header.php'; ?>
-
      <h1 class="lien">Login</h1> 
+
+     <a href="pageIndex.php"><button>Retour accueil</button></a>
 
     <div class="page-container d-flex flex-column align-items-center justify-content-center vh-100">
     <div class="background_encadrement"></div> 
-    
-   
-        <a href="pageInscription.php"><button>Retour inscription</button></a>
-
-        <a href="pageIndex.php"><button>Retour accueil</button></a>
-
 
         <form action="" method="POST"> 
             <div class="mb-3">

@@ -1,5 +1,5 @@
 <?php 
-session_start();
+require '../Corps/header.php';
 
 require '../CRUD/dbYameteKudasai.php';  //  connecter a la base de donnee
 
@@ -34,29 +34,7 @@ if(isset($_POST['envoi'])){    // lorsque l'on clique sur le bouton envoie , la 
 ?>
 
 
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/inscription2.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>inscription</title>
-</head>
-<body>
-
      <h1>Inscription</h1> 
-
-     
-     <a href="pageDeConnexion.php"><button>Retour Connexion</button></a>
 
      <a href="pageIndex.php"><button>Retour accueil</button></a>
      

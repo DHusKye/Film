@@ -1,23 +1,18 @@
-<?php 
-session_start();
-require_once '../Corps/header.php';
+<?php
+    include '../Corps/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'Accueil</title>
-</head>
 
-<body>
-<h1>Bonjour a Toi, <?php echo $_SESSION['pseudoUtilisateur']; ?> </h1>
+<!-- Contenu de démonstration -->
+<div class="container">
+    <div class="hero">
+        <div>
+            <h1>Bienvenue sur CinéMania</h1>
+            <p>Découvrez les meilleurs films et séries</p>
+        </div>
+    </div>
+</div>
 
-<a href="../CRUD/modifUser.php">Modifier Utilisateur</a>
-
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

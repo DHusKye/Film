@@ -2,5 +2,5 @@
 session_start();
 $_SESSION = array();
 session_destroy();
-header("Location: pageDeConnexion.php");
+header("Location: ../Page/pageIndex.php");
 ?>

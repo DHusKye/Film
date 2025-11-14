@@ -1,5 +1,5 @@
 <?php
-session_start();
+require '../Corps/header.php';
 require '../CRUD/dbYameteKudasai.php';
 
 // Vérifier que l'utilisateur est connecté
