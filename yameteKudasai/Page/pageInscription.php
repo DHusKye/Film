@@ -1,22 +1,26 @@
 <?php 
 session_start();
-$pdo = new PDO("mysql:host=localhost;dbname=residentEvil", "root", "root");
-if(isset($_POST['envoi'])){    // lorsque l'on clique sur le bouton envoie , la fonction if commence a partie de la en eexplicquant que si on clique sur envoie la fonction commence
-    if(!empty($_POST['nomUtilisateur']) && !empty($_POST['mdpUtilisateur']) && !empty($_POST['prenomUtilisateur']) && !empty($_POST['ageUtilisateur']) && !empty($_POST['emailUtilisateur'])){
 
-        $pseudo = htmlspecialchars($_POST['nomUtilisateur']) ;
-        $mdp = sha1($_POST['mdpUtilisateur']);
+require '../CRUD/dbYameteKudasai.php';  //  connecter a la base de donnee
+
+if(isset($_POST['envoi'])){    // lorsque l'on clique sur le bouton envoie , la fonction if commence a partie de la en eexplicquant que si on clique sur envoie la fonction commence
+    if ( !empty($_POST['pseudoUtilisateur']) && !empty($_POST['nomUtilisateur']) && !empty($_POST['prenomUtilisateur']) && !empty($_POST['ageUtilisateur']) && !empty($_POST['sexeUtilisateur'])&& !empty($_POST['emailUtilisateur']) && !empty($_POST['mdpUtilisateur'])) {
+        
+        $pseudo = htmlspecialchars($_POST['pseudoUtilisateur']) ;
+        $nom = htmlspecialchars($_POST['nomUtilisateur']);
         $prenom = htmlspecialchars($_POST['prenomUtilisateur']);
         $age = (int) $_POST['ageUtilisateur'];
+        $sexe = htmlspecialchars($_POST['sexeUtilisateur']);
         $email = htmlspecialchars($_POST['emailUtilisateur']);
+        $mdp = password_hash($_POST['mdpUtilisateur'], PASSWORD_DEFAULT);  // on hash le mot de passe pour la securite
 
-        $insertionUtilisateur = $pdo->prepare('INSERT INTO utilisateur(nomUtilisateur, mdpUtilisateur, prenomUtilisateur, ageUtilisateur, emailUtilisateur) VALUES(?, ?, ?, ?, ?)') ;
-        $insertionUtilisateur->execute(array($pseudo, $mdp, $prenom, $age, $email));
+        $insertionUtilisateur = $pdo->prepare('INSERT INTO inscription(pseudoUtilisateur, nomUtilisateur, prenomUtilisateur, ageUtilisateur, sexeUtilisateur, emailUtilisateur, mdpUtilisateur) VALUES(?, ?, ?, ?, ?, ?, ?)') ;
+        $insertionUtilisateur->execute(array($pseudo, $nom, $prenom, $age, $sexe, $email, $mdp));
 
-        $recupUtilisateur = $pdo->prepare('SELECT * FROM utilisateur WHERE nomUtilisateur = ? AND mdpUtilisateur = ?');
+        $recupUtilisateur = $pdo->prepare('SELECT * FROM inscription WHERE pseudoUtilisateur = ? AND mdpUtilisateur = ?');
         $recupUtilisateur->execute(array($pseudo, $mdp));
         if($recupUtilisateur->rowCount() > 0){   
-            $_SESSION['nomUtilisateur'] = $pseudo;
+            $_SESSION['pseudoUtilisateur'] = $pseudo;
             $_SESSION['mdpUtilisateur'] = $mdp;
             $_SESSION['id'] = $recupUtilisateur->fetch()['id'];     //on recuperer user et on recupr tout les donnes de cette utilsiateur et la on veut que l'id de lutilisateur
             header('Location: pageDeConnexion.php');  // une fois que l'utilisateur est inscrit on le redirige vers la page d'accueil en lui passant son id en parametre d'url
@@ -51,16 +55,21 @@ if(isset($_POST['envoi'])){    // lorsque l'on clique sur le bouton envoie , la 
 
      <h1>Inscription</h1> 
 
+     
+     <a href="pageDeConnexion.php"><button>Retour Connexion</button></a>
+
+     <a href="pageIndex.php"><button>Retour accueil</button></a>
+     
     <div class="page-container d-flex flex-column align-items-center justify-content-center vh-100">
 
     <div class="d-flex">
 
         
-        
-        
-        <form action="#" method="POST"> 
-
-            <img class="encadrement" src="../ImageResidentEvil/Gemini_Generated_Image_7pkgtx7pkgtx7pkg-removebg-preview.png">
+        <form action="" method="POST"> 
+            <div class="mb-3">
+                <label for="username" class="login-label">Pseudo</label>
+                <input type="text" class="form-control login-input" name="pseudoUtilisateur"  required>
+            </div>
             
             <div class="mb-3">
                 <label for="username" class="login-label">Nom</label>
@@ -78,10 +87,15 @@ if(isset($_POST['envoi'])){    // lorsque l'on clique sur le bouton envoie , la 
             </div>
             
             <div class="mb-3">
+                <label for="username" class="login-label">Sexe</label>
+                <input type="text" class="form-control login-input" name="sexeUtilisateur"  required>
+            </div>
+            
+            <div class="mb-3">
                 <label for="password" class="login-label1">Email</label>
                 <input type="email" class="form-control login-input1" name="emailUtilisateur" required>
             </div>
-            
+
             <div class="mb-3">
                 <label for="password" class="login-label1">Mot de passe</label>
                 <input type="password" class="form-control login-input1" name="mdpUtilisateur" required>
@@ -93,13 +107,6 @@ if(isset($_POST['envoi'])){    // lorsque l'on clique sur le bouton envoie , la 
                 </button>
             </div>
         </form>
-        
-
-        <a href="pageIndex.php">
-        <button>> 
-            Retour
-        </button>
-    </a> 
     
     </div>
 
